@@ -1,27 +1,60 @@
 package com.example.demo.controller;
 
-import com.example.demo.entity.MedicineEntity;
+import com.example.demo.debug.DebugLogger;
+import com.example.demo.entity.Medicine;
 import com.example.demo.service.MedicineService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import java.util.List;
 
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/medicines")
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin
 public class MedicineController {
 
-    @Autowired
-    private MedicineService medicineService;
+    private final MedicineService medicineService;
+
+    public MedicineController(MedicineService medicineService){
+        this.medicineService = medicineService;
+    }
 
     @GetMapping
-    public List<MedicineEntity> getMedicines() {
+    public List<Medicine> getAll(){
+        // #region agent log
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String principal = auth != null ? String.valueOf(auth.getPrincipal()) : "null";
+        String name = auth != null ? auth.getName() : "null";
+        DebugLogger.log(
+                "H3",
+                "pre-fix",
+                "MedicineController.getAll",
+                "getAll invoked",
+                "authName=" + name + ",principalClass=" + principal
+        );
+        // #endregion
         return medicineService.getAllMedicines();
     }
 
+    @GetMapping("/{id}")
+    public Medicine getById(@PathVariable Long id){
+        return medicineService.getMedicineById(id);
+    }
+
     @PostMapping
-    public MedicineEntity addMedicine(@RequestBody MedicineEntity medicine) {
-        return medicineService.saveMedicine(medicine);
+    public Medicine create(@RequestBody Medicine medicine){
+        return medicineService.createMedicine(medicine);
+    }
+
+    @PutMapping("/{id}")
+    public Medicine update(@PathVariable Long id,
+                           @RequestBody Medicine medicine){
+        return medicineService.updateMedicine(id, medicine);
+    }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        medicineService.deleteMedicine(id);
     }
 }
