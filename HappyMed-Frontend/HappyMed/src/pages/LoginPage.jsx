@@ -42,53 +42,13 @@ export default function LoginPage() {
   return (
     <div className="hm-auth-page">
       <div className="hm-auth-card">
-        <div className="hm-auth-header">
-          <div className="hm-logo-circle">+</div>
-          <div>
-            <div className="hm-brand-title">HappyMed</div>
-            <div className="hm-brand-subtitle">Pharmacy Inventory Suite</div>
+        <div className="left-card-content">
+          <div className="left-card-logo">
+            <img> Logo here</img>
           </div>
-        </div>
-
-        <h2 className="hm-auth-title">Sign in</h2>
-        <p className="hm-auth-subtitle">
-          Secure access for Admin, Pharmacists, and Inventory Staff.
-        </p>
-
-        <form className="hm-auth-form" onSubmit={handleSubmit}>
-          <label>
-            Username
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </label>
-
-          <label>
-            Password
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </label>
-
-          {error && <div className="hm-auth-error">{error}</div>}
-
-          <button type="submit" disabled={loading}>
-            {loading ? "Signing in..." : "Sign in"}
-          </button>
-        </form>
-
-        <div className="hm-auth-footer">
-          <span>New to HappyMed?</span>
-          <Link to="/register">Create an account</Link>
+          <div className="left-card-header-content">HappyMed Pharmacy</div>
         </div>
       </div>
     </div>
   );
 }
-

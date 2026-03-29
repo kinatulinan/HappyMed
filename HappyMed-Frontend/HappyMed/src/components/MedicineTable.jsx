@@ -35,6 +35,7 @@ export default function MedicineTable({ medicines, reload, setEditingMedicine })
               <th>Manufacturer</th>
               <th>Expiry</th>
               <th>Unit / Selling Price</th>
+              <th>In Stock</th>
               <th>Reorder Lvl</th>
               <th style={{ textAlign: 'right' }}>Actions</th>
             </tr>
@@ -62,6 +63,9 @@ export default function MedicineTable({ medicines, reload, setEditingMedicine })
                   <div style={{ fontSize: '0.8rem', color: '#16a34a', fontWeight: 500 }}>
                     ₱{m.sellingPrice?.toFixed(2) || '0.00'}
                   </div>
+                </td>
+                <td style={{ textAlign: 'center', fontWeight: 'bold', color: m.stockQuantity <= (m.reorderLevel || 0) && m.stockQuantity !== null ? '#ef4444' : '#10b981' }}>
+                  {m.stockQuantity !== null && m.stockQuantity !== undefined ? m.stockQuantity : 0}
                 </td>
                 <td style={{ color: '#64748b', textAlign: 'center' }}>
                   {m.reorderLevel !== null ? m.reorderLevel : '-'}
@@ -93,7 +97,7 @@ export default function MedicineTable({ medicines, reload, setEditingMedicine })
             
             {medicines.length === 0 && (
               <tr>
-                <td colSpan="8" style={{ textAlign: 'center', color: '#64748b', padding: '2rem 1rem' }}>
+                <td colSpan="9" style={{ textAlign: 'center', color: '#64748b', padding: '2rem 1rem' }}>
                   No medicines currently in inventory.
                 </td>
               </tr>

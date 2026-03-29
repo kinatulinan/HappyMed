@@ -28,7 +28,7 @@ export default function DashboardLayout() {
   const navItems = [
     { name: "Dashboard", path: "/", icon: <DashboardIcon />, exact: true },
     { name: "Medicines", path: "/medicines", icon: <BoxIcon /> },
-    { name: "Stock", path: "/stock", icon: <ChartIcon />, dropdown: true },
+    { name: "Stock", path: "/stock", icon: <ChartIcon /> },
     { name: "Settings", path: "/settings", icon: <SettingsIcon /> },
   ];
 

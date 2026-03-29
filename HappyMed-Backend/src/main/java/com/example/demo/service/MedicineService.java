@@ -2,7 +2,9 @@ package com.example.demo.service;
 
 
 
+import com.example.demo.entity.Inventory;
 import com.example.demo.entity.Medicine;
+import com.example.demo.repository.InventoryRepository;
 import com.example.demo.repository.MedicineRepository;
 import org.springframework.stereotype.Service;
 
@@ -12,18 +14,34 @@ import java.util.List;
 public class MedicineService {
 
     private final MedicineRepository medicineRepository;
+    private final InventoryRepository inventoryRepository;
 
-    public MedicineService(MedicineRepository medicineRepository){
+    public MedicineService(MedicineRepository medicineRepository, InventoryRepository inventoryRepository){
         this.medicineRepository = medicineRepository;
+        this.inventoryRepository = inventoryRepository;
     }
 
     public List<Medicine> getAllMedicines(){
-        return medicineRepository.findAll();
+        List<Medicine> medicines = medicineRepository.findAll();
+        for (Medicine m : medicines) {
+            Integer stock = inventoryRepository.findByMedicineId(m.getId())
+                    .map(Inventory::getTotalStock)
+                    .orElse(0);
+            m.setStockQuantity(stock);
+        }
+        return medicines;
     }
 
     public Medicine getMedicineById(Long id){
-        return medicineRepository.findById(id)
+        Medicine medicine = medicineRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Medicine not found"));
+                
+        Integer stock = inventoryRepository.findByMedicineId(medicine.getId())
+                .map(Inventory::getTotalStock)
+                .orElse(0);
+        medicine.setStockQuantity(stock);
+        
+        return medicine;
     }
 
     public Medicine createMedicine(Medicine medicine){

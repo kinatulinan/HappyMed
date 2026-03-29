@@ -1,5 +1,9 @@
 :root {
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-family:
+    "Inter",
+    system-ui,
+    -apple-system,
+    sans-serif;
   line-height: 1.5;
   font-weight: 400;
   color: #334155;
@@ -211,10 +215,10 @@ button {
 
 .hm-user-avatar {
   img {
-     width: 36px;
-     height: 36px;
-     border-radius: 50%;
-     object-fit: cover;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
   }
 }
 
@@ -287,10 +291,22 @@ button {
   height: 24px;
 }
 
-.hm-stat-purple { background: #eef2ff; color: #6366f1; }
-.hm-stat-green { background: #dcfce7; color: #22c55e; }
-.hm-stat-yellow { background: #fef9c3; color: #eab308; }
-.hm-stat-red { background: #fee2e2; color: #ef4444; }
+.hm-stat-purple {
+  background: #eef2ff;
+  color: #6366f1;
+}
+.hm-stat-green {
+  background: #dcfce7;
+  color: #22c55e;
+}
+.hm-stat-yellow {
+  background: #fef9c3;
+  color: #eab308;
+}
+.hm-stat-red {
+  background: #fee2e2;
+  color: #ef4444;
+}
 
 .hm-stat-content {
   display: flex;
@@ -520,7 +536,7 @@ button {
 }
 
 .hm-tooltip::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -4px;
   left: 50%;
@@ -556,8 +572,8 @@ button {
   margin-bottom: 0.5rem;
 }
 .hm-donut-total-label {
-    font-size: 0.85rem;
-    color: #64748b;
+  font-size: 0.85rem;
+  color: #64748b;
 }
 
 .hm-donut-total-value {
@@ -569,9 +585,9 @@ button {
   gap: 0.5rem;
 }
 .hm-donut-total-change {
-    font-size: 0.75rem;
-    color: #22c55e;
-    font-weight: 500;
+  font-size: 0.75rem;
+  color: #22c55e;
+  font-weight: 500;
 }
 
 .hm-legend-item {
@@ -589,7 +605,8 @@ button {
 }
 
 @media (max-width: 1024px) {
-  .hm-grid-4, .hm-grid-2 {
+  .hm-grid-4,
+  .hm-grid-2 {
     grid-template-columns: 1fr;
   }
 }
@@ -615,11 +632,13 @@ button {
 
 .hm-auth-card {
   width: 100%;
-  max-width: 420px;
+  max-width: 80rem;
   background: #ffffff;
   border-radius: 12px;
   padding: 2rem;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  box-shadow:
+    0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
   border: 1px solid #e2e8f0;
 }
 
@@ -697,7 +716,7 @@ button {
   margin-top: 0.5rem;
 }
 .hm-auth-btn:hover {
-    background: #4338ca;
+  background: #4338ca;
 }
 
 .hm-auth-footer {
@@ -722,7 +741,7 @@ button {
   color: #334155;
 }
 .hm-ghost-button:hover {
-    background: #f1f5f9;
+  background: #f1f5f9;
 }
 
 /* Base Form & Button Styles for Dashboard pages */
@@ -793,24 +812,24 @@ button {
 }
 
 .hm-page {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
 .hm-page-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 .hm-page-header h2 {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #0f172a;
-    margin: 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0;
 }
 .hm-page-header p {
-    color: #64748b;
-    font-size: 0.95rem;
-    margin-top: 0.25rem;
+  color: #64748b;
+  font-size: 0.95rem;
+  margin-top: 0.25rem;
 }
