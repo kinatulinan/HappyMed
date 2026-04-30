@@ -8,6 +8,7 @@ import RegisterPage from "./pages/RegisterPage";
 import AuditLogsPage from "./pages/AuditLogsPage";
 import DashboardPage from "./pages/DashboardPage";
 import StocksPage from "./pages/StocksPage";
+import ReportsPage from "./pages/ReportsPage";
 
 function UnauthorizedPage() {
   return (
@@ -42,6 +43,7 @@ function App() {
             <Route index element={<DashboardPage />} />
             <Route path="medicines" element={<MedicinesPage />} />
             <Route path="stock" element={<StocksPage />} />
+            <Route path="reports" element={<ReportsPage />} />
             <Route
               path="audit-logs"
               element={

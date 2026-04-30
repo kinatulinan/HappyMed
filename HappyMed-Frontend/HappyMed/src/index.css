@@ -621,116 +621,439 @@ button {
   }
 }
 
-/* Auth Pages (Unchanged visually but adapting to new light scheme) */
+/* --- Modern Auth Pages --- */
 .hm-auth-page {
+  min-height: 100vh;
+  width: 100vw;
+  display: flex;
+  background-color: #f8fafc;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.hm-auth-split {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+/* Left side - Branding */
+.hm-auth-left {
+  flex: 1;
+  background: linear-gradient(135deg, #4f46e5 0%, #3b82f6 100%);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 4rem;
+  color: white;
+  overflow: hidden;
+}
+
+.hm-auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 2;
+}
+
+.hm-auth-logo-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+}
+.hm-auth-logo-icon svg {
+  width: 24px;
+  height: 24px;
+  color: white;
+}
+
+.hm-auth-brand h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.hm-auth-hero-text {
+  z-index: 2;
+  max-width: 480px;
+  margin-bottom: 2rem;
+}
+
+.hm-auth-hero-text h1 {
+  font-size: 3rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.03em;
+}
+
+.hm-auth-hero-text p {
+  font-size: 1.125rem;
+  opacity: 0.9;
+  line-height: 1.6;
+}
+
+.hm-auth-decor-circle-1 {
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%);
+  top: -200px;
+  left: -200px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.hm-auth-decor-circle-2 {
+  position: absolute;
+  width: 800px;
+  height: 800px;
+  background: radial-gradient(circle, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0) 70%);
+  bottom: -300px;
+  right: -200px;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+/* Right side - Form */
+/* --- Replica Login Page --- */
+.login-wrapper {
+  background-color: #333333; /* Dark gray exterior */
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 2rem 1.25rem;
+  padding: 3rem;
+  font-family: 'Inter', system-ui, sans-serif;
 }
 
-.hm-auth-card {
+.login-container {
+  display: flex;
   width: 100%;
-  max-width: 80rem;
-  background: #ffffff;
-  border-radius: 12px;
-  padding: 2rem;
-  box-shadow:
-    0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  border: 1px solid #e2e8f0;
+  max-width: 1200px;
+  height: 800px;
+  background: white;
+  border-radius: 4px;
+  overflow: hidden;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.3);
 }
 
-.hm-auth-header {
+/* Left Section */
+.login-left {
+  flex: 1;
+  background-image: url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&q=80');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3rem;
+  color: white;
+}
+
+/* Add a dark gradient overlay at the bottom for readability */
+.login-left::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.5) 100%);
+  z-index: 1;
+}
+
+.login-brand {
+  z-index: 2;
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: 1.2rem;
+  font-weight: 500;
+  font-size: 1.1rem;
 }
 
-.hm-auth-title {
-  font-size: 1.3rem;
+.login-logo-circle {
+  width: 36px;
+  height: 36px;
+  background: white;
+  color: #333;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-hero-content {
+  z-index: 2;
+  margin-bottom: 2rem;
+}
+
+.login-hero-content h1 {
+  font-size: 2.8rem;
   font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
-.hm-auth-subtitle {
-  margin-bottom: 1.4rem;
-  font-size: 0.9rem;
-  color: #64748b;
+.login-hero-content p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  opacity: 0.9;
+  margin-bottom: 2rem;
 }
 
-.hm-auth-form {
+.login-dots {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.login-dots .dot {
+  width: 6px;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 3px;
+  transition: all 0.3s;
+}
+
+.login-dots .dot.active {
+  width: 24px;
+  background: white;
+}
+
+/* Right Section */
+.login-right {
+  flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 0.9rem;
+  background: white;
+  position: relative;
 }
 
-.hm-auth-form label {
-  font-size: 0.85rem;
-  font-weight: 600;
+.login-right-top {
+  padding: 2rem 3rem;
   display: flex;
-  flex-direction: column;
-  gap: 0.35rem;
+  justify-content: flex-end;
 }
 
-.hm-auth-form input,
-.hm-auth-form select {
-  border-radius: 6px;
-  border: 1px solid #cbd5e1;
-  padding: 0.55rem 0.9rem;
-  font-size: 0.9rem;
-  font-family: inherit;
-  outline: none;
-  background: #ffffff;
-}
-
-.hm-auth-form input:focus,
-.hm-auth-form select:focus {
-  border-color: #4f46e5;
-  box-shadow: 0 0 0 1px #4f46e5;
-}
-
-.hm-auth-error {
-  font-size: 0.8rem;
-  color: #ef4444;
-  background: #fee2e2;
-  border-radius: 4px;
-  padding: 0.35rem 0.75rem;
-}
-
-.hm-auth-success {
-  font-size: 0.8rem;
-  color: #22c55e;
-  background: #dcfce7;
-  border-radius: 4px;
-  padding: 0.35rem 0.75rem;
-}
-
-.hm-auth-btn {
-  background: #4f46e5;
+.top-sign-in-btn {
+  background: black;
   color: white;
+  padding: 0.6rem 1.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.login-form-wrapper {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-width: 440px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 2rem;
+  padding-bottom: 4rem;
+}
+
+.login-form-wrapper h2 {
+  font-size: 1.8rem;
+  color: #1a1a3a;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.login-form-wrapper .subtitle {
+  color: #888;
+  font-size: 0.85rem;
+  margin-bottom: 2.5rem;
+}
+
+.login-input-group {
+  margin-bottom: 1.5rem;
+}
+
+.login-input-group label {
+  display: block;
+  font-size: 0.75rem;
+  color: #666;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+}
+
+.login-input-group input[type="text"],
+.login-input-group input[type="password"] {
+  width: 100%;
+  padding: 0.85rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #333;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.login-input-group input:focus {
+  border-color: #666;
+}
+
+.password-input-wrapper {
+  position: relative;
+}
+
+.eye-btn {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: #aaa;
+  cursor: pointer;
+  padding: 0;
+  display: flex;
+}
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  font-size: 0.75rem;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #333;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.checkbox-container input {
+  width: 14px;
+  height: 14px;
+  accent-color: black;
+}
+
+.forgot-password {
+  color: #aaa;
+  text-decoration: none;
+}
+
+.login-submit-btn {
+  width: 100%;
+  background: #1a1a1a;
+  color: white;
+  padding: 1rem;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 2rem;
+}
+
+.login-submit-btn:hover {
+  background: #333;
+}
+
+.login-divider {
+  text-align: center;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.login-divider::before,
+.login-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: 35%;
+  height: 1px;
+  background: #eee;
+}
+
+.login-divider::before { left: 0; }
+.login-divider::after { right: 0; }
+
+.login-divider span {
+  background: white;
+  padding: 0 1rem;
+  color: #aaa;
+  font-size: 0.75rem;
+  position: relative;
+  z-index: 1;
+}
+
+.social-login-group {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 4rem;
+}
+
+.social-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  border: 1px solid #eee;
+  border-radius: 6px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #666;
+  background: white;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.social-btn:hover {
+  background: #f9f9f9;
+}
+
+.login-footer {
+  text-align: center;
+  font-size: 0.75rem;
+  color: #888;
+}
+
+.login-footer a {
+  color: #4f46e5;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.login-alert-error {
+  background: #fef2f2;
+  color: #b91c1c;
   padding: 0.75rem;
   border-radius: 6px;
-  font-weight: 500;
-  margin-top: 0.5rem;
-}
-.hm-auth-btn:hover {
-  background: #4338ca;
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
 }
 
-.hm-auth-footer {
-  margin-top: 1.2rem;
-  display: flex;
-  justify-content: center;
-  gap: 0.35rem;
-  font-size: 0.85rem;
-  color: #64748b;
-}
-
-.hm-auth-footer a {
-  font-weight: 600;
-  color: #4f46e5;
+@media (max-width: 900px) {
+  .login-left {
+    display: none;
+  }
+  .login-container {
+    height: auto;
+    min-height: 600px;
+  }
+  .login-wrapper {
+    padding: 1rem;
+  }
 }
 
 /* Auth Pages (Unchanged visually but adapting to new light scheme) */
@@ -832,4 +1155,227 @@ button {
   color: #64748b;
   font-size: 0.95rem;
   margin-top: 0.25rem;
+}
+
+/* --- Inventory Management Layout --- */
+.inventory-dashboard-layout {
+  display: grid;
+  grid-template-columns: 2fr 1.3fr;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.inventory-table-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.inventory-table-header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+}
+
+.inventory-table-header h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #0f172a;
+  margin: 0;
+}
+
+.inventory-stat-badge {
+  background: #eef2ff;
+  color: #4f46e5;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.hm-table-scroll-wrapper {
+  overflow-y: auto;
+  max-height: 600px;
+}
+
+.hm-modern-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.hm-modern-table th {
+  text-align: left;
+  padding: 1rem 1.5rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #64748b;
+  border-bottom: 1px solid #e2e8f0;
+  position: sticky;
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+.hm-modern-table td {
+  padding: 1.25rem 1.5rem;
+  font-size: 0.9rem;
+  color: #334155;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+
+.hm-modern-table tr:hover td {
+  background: #f8fafc;
+}
+
+.med-name {
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 0.25rem;
+}
+
+.med-generic {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.stock-number {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #0f172a;
+  background: #f1f5f9;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+}
+
+/* Status Pills */
+.status-pill {
+  display: inline-block;
+  padding: 0.35rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+.status-healthy { background: #dcfce7; color: #16a34a; }
+.status-warning { background: #fef9c3; color: #ca8a04; }
+.status-danger { background: #fee2e2; color: #dc2626; }
+
+/* Operations Panel */
+.inventory-ops-container {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+  border: 1px solid #e2e8f0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.ops-tabs {
+  display: flex;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.ops-tab {
+  flex: 1;
+  padding: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #64748b;
+  background: #f8fafc;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-bottom: 2px solid transparent;
+}
+
+.ops-tab:hover {
+  background: #f1f5f9;
+  color: #334155;
+}
+
+.ops-tab.active {
+  background: white;
+  color: #4f46e5;
+  border-bottom: 2px solid #4f46e5;
+}
+
+.ops-content {
+  padding: 2rem;
+}
+
+.ops-alert {
+  padding: 0.85rem 1rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  margin-bottom: 1.5rem;
+}
+
+.ops-alert-error {
+  background: #fef2f2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+}
+
+.ops-alert-success {
+  background: #dcfce7;
+  color: #166534;
+  border: 1px solid #bbf7d0;
+}
+
+.ops-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.ops-form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+}
+
+.ops-submit-btn {
+  width: 100%;
+  padding: 1rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  border: none;
+  cursor: pointer;
+  margin-top: 0.5rem;
+  transition: all 0.2s;
+}
+
+.ops-btn-in {
+  background: #4f46e5;
+}
+.ops-btn-in:hover {
+  background: #4338ca;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+}
+
+.ops-btn-out {
+  background: #f59e0b;
+}
+.ops-btn-out:hover {
+  background: #d97706;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(245, 158, 11, 0.2);
+}
+
+@media (max-width: 1200px) {
+  .inventory-dashboard-layout {
+    grid-template-columns: 1fr;
+  }
 }

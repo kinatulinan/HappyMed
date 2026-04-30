@@ -29,12 +29,9 @@ export default function MedicineTable({ medicines, reload, setEditingMedicine })
         <table className="hm-table">
           <thead>
             <tr>
-              <th>Generic / Brand Name</th>
-              <th>Category</th>
-              <th>Form / Strength</th>
-              <th>Manufacturer</th>
+              <th>Item Name</th>
               <th>Expiry</th>
-              <th>Unit / Selling Price</th>
+              <th>Unit Price / SRP</th>
               <th>In Stock</th>
               <th>Reorder Lvl</th>
               <th style={{ textAlign: 'right' }}>Actions</th>
@@ -44,19 +41,8 @@ export default function MedicineTable({ medicines, reload, setEditingMedicine })
             {medicines.map((m) => (
               <tr key={m.id}>
                 <td>
-                  <div style={{ fontWeight: 600 }}>{m.genericName}</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b' }}>{m.brandName || '-'}</div>
+                  <div style={{ fontWeight: 600 }}>{m.itemName}</div>
                 </td>
-                <td>
-                  <span className="hm-pill hm-pill-delivered" style={{ background: '#f1f5f9', color: '#475569' }}>
-                    {m.category || 'N/A'}
-                  </span>
-                </td>
-                <td>
-                  <div>{m.dosageForm || '-'}</div>
-                  <div style={{ fontSize: '0.8rem', color: '#64748b' }}>{m.strength || '-'}</div>
-                </td>
-                <td style={{ color: '#64748b' }}>{m.manufacturer || '-'}</td>
                 <td style={{ color: '#ef4444', fontSize: '0.9rem' }}>{m.expiryDate || 'N/A'}</td>
                 <td>
                   <div>₱{m.unitPrice?.toFixed(2) || '0.00'}</div>
@@ -97,7 +83,7 @@ export default function MedicineTable({ medicines, reload, setEditingMedicine })
             
             {medicines.length === 0 && (
               <tr>
-                <td colSpan="9" style={{ textAlign: 'center', color: '#64748b', padding: '2rem 1rem' }}>
+                <td colSpan="6" style={{ textAlign: 'center', color: '#64748b', padding: '2rem 1rem' }}>
                   No medicines currently in inventory.
                 </td>
               </tr>

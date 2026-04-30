@@ -14,8 +14,8 @@ export default function RegisterPage() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -46,68 +46,105 @@ export default function RegisterPage() {
   };
 
   return (
-    <div className="hm-auth-page">
-      <div className="hm-auth-card">
-        <div className="hm-auth-header">
-          <div className="hm-logo-circle">+</div>
-          <div>
-            <div className="hm-brand-title">HappyMed</div>
-            <div className="hm-brand-subtitle">Create secure access</div>
+    <div className="login-wrapper">
+      <div className="login-container">
+        
+        {/* Left Side: Image section */}
+        <div className="login-left">
+          <div className="login-brand">
+            <div className="login-logo-circle">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+            </div>
+            <span>HappyMed</span>
+          </div>
+
+          <div className="login-hero-content">
+            <h1>Join our platform</h1>
+            <p>Create an account to manage your pharmacy<br/>inventory with ease and security.</p>
+            <div className="login-dots">
+              <span className="dot"></span>
+              <span className="dot active"></span>
+              <span className="dot"></span>
+            </div>
           </div>
         </div>
 
-        <h2 className="hm-auth-title">Register</h2>
-        <p className="hm-auth-subtitle">
-          Assign the appropriate role to control access.
-        </p>
+        {/* Right Side: Form section */}
+        <div className="login-right">
+          <div className="login-right-top">
+            <Link to="/login" className="top-sign-in-btn" style={{textDecoration: "none", display: "inline-block"}}>Sign in</Link>
+          </div>
 
-        <form className="hm-auth-form" onSubmit={handleSubmit}>
-          <label>
-            Username
-            <input
-              type="text"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              required
-            />
-          </label>
+          <div className="login-form-wrapper">
+            <h2>Create an Account!</h2>
+            <p className="subtitle">Assign the appropriate role to control access</p>
 
-          <label>
-            Password
-            <input
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-            />
-          </label>
+            {error && <div className="login-alert-error">{error}</div>}
+            {success && <div className="login-alert-success" style={{background: "#dcfce7", color: "#166534", padding: "0.75rem", borderRadius: "6px", fontSize: "0.8rem", marginBottom: "1.5rem"}}>{success}</div>}
 
-          <label>
-            Role
-            <select
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-              required
-            >
-              {ROLES.map((r) => (
-                <option key={r.value} value={r.value}>
-                  {r.label}
-                </option>
-              ))}
-            </select>
-          </label>
+            <form onSubmit={handleSubmit}>
+              <div className="login-input-group">
+                <label>Username</label>
+                <input 
+                  type="text" 
+                  placeholder="Enter your username" 
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  required
+                />
+              </div>
 
-          {error && <div className="hm-auth-error">{error}</div>}
-          {success && <div className="hm-auth-success">{success}</div>}
+              <div className="login-input-group">
+                <label>Password</label>
+                <div className="password-input-wrapper">
+                  <input 
+                    type={showPassword ? "text" : "password"} 
+                    placeholder="••••••••" 
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                  <button type="button" className="eye-btn" onClick={() => setShowPassword(!showPassword)}>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                  </button>
+                </div>
+              </div>
 
-          <button type="submit" disabled={loading}>
-            {loading ? "Creating..." : "Create account"}
-          </button>
-        </form>
+              <div className="login-input-group">
+                <label>Role</label>
+                <select 
+                  value={role}
+                  onChange={(e) => setRole(e.target.value)}
+                  required
+                  style={{
+                    width: "100%",
+                    padding: "0.85rem 1rem",
+                    border: "1px solid #ccc",
+                    borderRadius: "6px",
+                    fontSize: "0.9rem",
+                    color: "#333",
+                    outline: "none",
+                    backgroundColor: "white",
+                    appearance: "auto"
+                  }}
+                >
+                  {ROLES.map((r) => (
+                    <option key={r.value} value={r.value}>
+                      {r.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
 
-        <div className="hm-auth-footer">
-          <span>Already registered?</span>
-          <Link to="/login">Sign in</Link>
+              <button type="submit" className="login-submit-btn" disabled={loading} style={{marginTop: "1rem", marginBottom: "1rem"}}>
+                {loading ? "Creating..." : "Create account"}
+              </button>
+            </form>
+
+            <div className="login-footer">
+              Already registered? <Link to="/login">Sign in</Link>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -45,7 +45,14 @@ public class MedicineService {
     }
 
     public Medicine createMedicine(Medicine medicine){
-        return medicineRepository.save(medicine);
+        Medicine saved = medicineRepository.save(medicine);
+        if (medicine.getStockQuantity() != null && medicine.getStockQuantity() > 0) {
+            Inventory inventory = new Inventory();
+            inventory.setMedicineId(saved.getId());
+            inventory.setTotalStock(medicine.getStockQuantity());
+            inventoryRepository.save(inventory);
+        }
+        return saved;
     }
 
     public Medicine updateMedicine(Long id, Medicine updated){
@@ -53,12 +60,7 @@ public class MedicineService {
         Medicine medicine = medicineRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Medicine not found"));
 
-        medicine.setGenericName(updated.getGenericName());
-        medicine.setBrandName(updated.getBrandName());
-        medicine.setCategory(updated.getCategory());
-        medicine.setDosageForm(updated.getDosageForm());
-        medicine.setStrength(updated.getStrength());
-        medicine.setManufacturer(updated.getManufacturer());
+        medicine.setItemName(updated.getItemName());
         medicine.setExpiryDate(updated.getExpiryDate());
         medicine.setUnitPrice(updated.getUnitPrice());
         medicine.setSellingPrice(updated.getSellingPrice());

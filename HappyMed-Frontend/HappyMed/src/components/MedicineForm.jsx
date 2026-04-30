@@ -6,46 +6,56 @@ const SaveIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height
 const XIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>;
 
 export default function MedicineForm({ reload, editingMedicine, setEditingMedicine }) {
-  const [genericName, setGenericName] = useState("");
-  const [brandName, setBrandName] = useState("");
-  const [category, setCategory] = useState("");
-  const [dosageForm, setDosageForm] = useState("");
-  const [strength, setStrength] = useState("");
-  const [manufacturer, setManufacturer] = useState("");
+  const [itemName, setItemName] = useState("");
   const [expiryDate, setExpiryDate] = useState("");
   const [unitPrice, setUnitPrice] = useState("");
   const [sellingPrice, setSellingPrice] = useState("");
+  const [markup, setMarkup] = useState("");
   const [reorderLevel, setReorderLevel] = useState("");
+  const [stockQuantity, setStockQuantity] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Auto-calculate SRP based on Unit Price and Markup percentage
+  useEffect(() => {
+    if (unitPrice && markup) {
+      const cost = parseFloat(unitPrice);
+      const percent = parseFloat(markup);
+      if (!isNaN(cost) && !isNaN(percent)) {
+        const computedSrp = (cost * (percent / 100)) + cost;
+        setSellingPrice(computedSrp.toFixed(2));
+      }
+    }
+  }, [unitPrice, markup]);
 
   useEffect(() => {
     if (editingMedicine) {
-      setGenericName(editingMedicine.genericName || "");
-      setBrandName(editingMedicine.brandName || "");
-      setCategory(editingMedicine.category || "");
-      setDosageForm(editingMedicine.dosageForm || "");
-      setStrength(editingMedicine.strength || "");
-      setManufacturer(editingMedicine.manufacturer || "");
+      setItemName(editingMedicine.itemName || "");
       setExpiryDate(editingMedicine.expiryDate || "");
       setUnitPrice(editingMedicine.unitPrice != null ? String(editingMedicine.unitPrice) : "");
       setSellingPrice(editingMedicine.sellingPrice != null ? String(editingMedicine.sellingPrice) : "");
       setReorderLevel(editingMedicine.reorderLevel != null ? String(editingMedicine.reorderLevel) : "");
+      setStockQuantity(editingMedicine.stockQuantity != null ? String(editingMedicine.stockQuantity) : "");
+      
+      // Reverse-calculate markup percentage if both prices exist
+      if (editingMedicine.unitPrice && editingMedicine.sellingPrice && editingMedicine.unitPrice > 0) {
+        const calcMarkup = ((editingMedicine.sellingPrice - editingMedicine.unitPrice) / editingMedicine.unitPrice) * 100;
+        setMarkup(calcMarkup.toFixed(2));
+      } else {
+        setMarkup("");
+      }
     } else {
       resetForm();
     }
   }, [editingMedicine]);
 
   const resetForm = () => {
-    setGenericName("");
-    setBrandName("");
-    setCategory("");
-    setDosageForm("");
-    setStrength("");
-    setManufacturer("");
+    setItemName("");
     setExpiryDate("");
     setUnitPrice("");
     setSellingPrice("");
+    setMarkup("");
     setReorderLevel("");
+    setStockQuantity("");
   };
 
   const cancelEdit = () => {
@@ -59,16 +69,12 @@ export default function MedicineForm({ reload, editingMedicine, setEditingMedici
 
     try {
       const payload = {
-        genericName,
-        brandName,
-        category,
-        dosageForm,
-        strength,
-        manufacturer,
+        itemName,
         expiryDate: expiryDate || null,
         unitPrice: unitPrice === "" ? null : Number(unitPrice),
         sellingPrice: sellingPrice === "" ? null : Number(sellingPrice),
         reorderLevel: reorderLevel === "" ? null : Number(reorderLevel),
+        stockQuantity: stockQuantity === "" ? null : Number(stockQuantity),
       };
 
       if (editingMedicine) {
@@ -94,64 +100,14 @@ export default function MedicineForm({ reload, editingMedicine, setEditingMedici
       
       <form onSubmit={submit}>
         <div className="hm-grid hm-grid-4">
-          <div className="hm-form-group">
-            <label>Generic Name</label>
+          <div className="hm-form-group" style={{ gridColumn: "span 2" }}>
+            <label>Item Name</label>
             <input
               className="hm-input"
-              placeholder="e.g. Paracetamol"
-              value={genericName}
-              onChange={(e) => setGenericName(e.target.value)}
+              placeholder="e.g. Biogesic Paracetamol 500mg Tablet"
+              value={itemName}
+              onChange={(e) => setItemName(e.target.value)}
               required
-            />
-          </div>
-
-          <div className="hm-form-group">
-            <label>Brand Name</label>
-            <input
-              className="hm-input"
-              placeholder="e.g. Biogesic"
-              value={brandName}
-              onChange={(e) => setBrandName(e.target.value)}
-            />
-          </div>
-
-          <div className="hm-form-group">
-            <label>Category</label>
-            <input
-              className="hm-input"
-              placeholder="e.g. Analgesic"
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            />
-          </div>
-
-          <div className="hm-form-group">
-            <label>Dosage Form</label>
-            <input
-               className="hm-input"
-              placeholder="e.g. Tablet"
-              value={dosageForm}
-              onChange={(e) => setDosageForm(e.target.value)}
-            />
-          </div>
-
-          <div className="hm-form-group">
-            <label>Strength</label>
-            <input
-              className="hm-input"
-              placeholder="e.g. 500mg"
-              value={strength}
-              onChange={(e) => setStrength(e.target.value)}
-            />
-          </div>
-
-          <div className="hm-form-group">
-            <label>Manufacturer</label>
-            <input
-              className="hm-input"
-              placeholder="e.g. Unilab"
-              value={manufacturer}
-              onChange={(e) => setManufacturer(e.target.value)}
             />
           </div>
           
@@ -178,7 +134,19 @@ export default function MedicineForm({ reload, editingMedicine, setEditingMedici
           </div>
 
           <div className="hm-form-group">
-            <label>Selling Price (₱)</label>
+            <label>Markup (%)</label>
+            <input
+              className="hm-input"
+              type="number"
+              step="0.01"
+              placeholder="e.g. 20"
+              value={markup}
+              onChange={(e) => setMarkup(e.target.value)}
+            />
+          </div>
+
+          <div className="hm-form-group">
+            <label>SRP (₱)</label>
             <input
               className="hm-input"
               type="number"
@@ -199,6 +167,20 @@ export default function MedicineForm({ reload, editingMedicine, setEditingMedici
               onChange={(e) => setReorderLevel(e.target.value)}
             />
           </div>
+
+          {!editingMedicine && (
+            <div className="hm-form-group">
+              <label>Initial Stock Qty</label>
+              <input
+                className="hm-input"
+                type="number"
+                placeholder="e.g. 100"
+                value={stockQuantity}
+                onChange={(e) => setStockQuantity(e.target.value)}
+                min="0"
+              />
+            </div>
+          )}
         </div>
         
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.5rem', gap: '0.75rem' }}>
